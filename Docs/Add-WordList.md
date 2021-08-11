@@ -19,16 +19,28 @@ Add-WordList [[-WordDocument] <Container>] [[-Paragraph] <InsertBeforeOrAfter>] 
 ```
 
 ## DESCRIPTION
-{{Fill in the Description}}
+Adds (sequentially) list items into an existing word-document-object from a supplied array. Optionally, for each item, a listlevel 
+(i.e. hierarchical relationship relative to the first array member) can be specified. Lists can be either bullited or numbered.
 
 ## EXAMPLES
 
 ### Example 1
 ```powershell
-PS C:\> {{ Add example code here }}
+PS C:\> Add-WordList -WordDocument "$env:TEMP\myword.docx" -type 'bulleted' -listdata @('a','b','c') -Supress:$true
 ```
+Add a simple list, all at the same level, from a specified arra
 
-{{ Add example description here }}
+### Example 2
+```powershell
+PS C:\> Add-WordList -WordDocument "$env:TEMP\myword.docx" -type 'bulleted' -listdata @('a','b','c') -listlevels @(1,2,3) -Supress:$true
+```
+Add a simple list, each member subordinate in level to its predecessor within the array
+
+### Example 3
+```powershell
+PS C:\> Add-WordList -WordDocument "$env:TEMP\myword.docx" -type 'bulleted' -listdata @('a','b','c') -listlevels @(1,1,1) -Supress:$true
+```
+Add a simple list, all at the same level, but indented by one level (e.g. for readability)
 
 ## PARAMETERS
 
@@ -63,7 +75,7 @@ Accept wildcard characters: False
 ```
 
 ### -ListLevels
-{{Fill ListLevels Description}}
+A collection of values, mapped 1-to-1 to the specified listdata, determining the appropriae list indentation and symbols indicating such.
 
 ```yaml
 Type: Array
@@ -93,7 +105,7 @@ Accept wildcard characters: False
 ```
 
 ### -Supress
-{{Fill Supress Description}}
+Switch. If TRUE, do NOT display resulting XML on screen.
 
 ```yaml
 Type: Boolean
@@ -124,7 +136,7 @@ Accept wildcard characters: False
 ```
 
 ### -WordDocument
-{{Fill WordDocument Description}}
+.NET object (representing WORD document), typically created by 'new-worddocument', specifying the target of this command's actions
 
 ```yaml
 Type: Container
